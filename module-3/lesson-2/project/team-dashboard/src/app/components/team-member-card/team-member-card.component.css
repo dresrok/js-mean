@@ -156,3 +156,23 @@
   transform: translateY(-1px);
   box-shadow: 0 2px 5px rgba(102, 126, 234, 0.3);
 }
+
+.mentor-badge {
+  background: #28a745;
+  color: white;
+  font-size: 0.75em;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-weight: 500;
+  margin-left: 8px;
+}
+
+.mentee-badge {
+  background: #17a2b8;
+  color: white;
+  font-size: 0.75em;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-weight: 500;
+  margin-left: 8px;
+}

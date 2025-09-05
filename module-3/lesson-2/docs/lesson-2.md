@@ -27,8 +27,7 @@ Componentes y plantillas en Angular
 
 # Objetivos
 
-- Entender la arquitectura de componentes en Angular
-- Dominar la estructura de componentes (clase, plantilla, selector, estilos)
+- Entender la estructura y anatomía de los componentes en Angular (clase, plantilla, selector, estilos)
 - Aplicar interpolación de texto y property binding
 - Construir componentes y entender el sistema de imports
 

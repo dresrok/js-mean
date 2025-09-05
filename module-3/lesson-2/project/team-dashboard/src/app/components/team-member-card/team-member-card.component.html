@@ -22,6 +22,11 @@
     <div class="info-row">
       <span class="label">Experiencia:</span>
       <span class="value">{{ member.experience }} años ({{ getSeniorityLevel() }})</span>
+
+      <span class="mentor-badge" *ngIf="getSeniorityLevel() === 'Senior'; else menteeTemplate">Mentor Disponible</span>
+      <ng-template #menteeTemplate>
+        <span class="mentee-badge">Buscando Mentor</span>
+      </ng-template>
     </div>
 
     <div class="info-row">
