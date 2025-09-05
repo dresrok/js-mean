@@ -1,0 +1,42 @@
+<div class="dashboard">
+  <app-header [companyName]="companyName" [userName]="currentUser"> </app-header>
+
+  <main class="dashboard-content">
+    <section class="team-section">
+      <h2 class="section-title">Miembros del Equipo</h2>
+
+      <div class="filters">
+        <button
+          class="filter-btn"
+          [class.active]="currentFilter === 'todos'"
+          (click)="setFilter('todos')"
+        >
+          Todos ({{ teamMembers.length }})
+        </button>
+        <button
+          class="filter-btn"
+          [class.active]="currentFilter === 'disponible'"
+          (click)="setFilter('disponible')"
+        >
+          Disponibles ({{ getAvailableCount() }})
+        </button>
+        <button
+          class="filter-btn"
+          [class.active]="currentFilter === 'ingenieria'"
+          (click)="setFilter('ingenieria')"
+        >
+          Engineering ({{ getEngineeringCount() }})
+        </button>
+      </div>
+
+      <div class="members-grid">
+        <app-team-member-card
+          *ngFor="let member of getFilteredMembers()"
+          [member]="member"
+          (memberInteraction)="onMemberInteraction($event)"
+        >
+        </app-team-member-card>
+      </div>
+    </section>
+  </main>
+</div>
