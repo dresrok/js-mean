@@ -2,12 +2,12 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SkillBadgeComponent } from '../skill-badge/skill-badge.component';
 import { AvailabilityIndicatorComponent } from '../availability-indicator/availability-indicator.component';
-import { AppHoverLiftDirective } from '../../directives/app-hover-lift.directive'; // import custom directive
+import { AppHoverLiftDirective } from '../../directives/app-hover-lift.directive'; // importar la directiva personalizada
 import { TeamMember } from '../../models/team-member.interface';
 
 @Component({
   selector: 'app-team-member-card',
-  imports: [CommonModule, SkillBadgeComponent, AvailabilityIndicatorComponent, AppHoverLiftDirective],
+  imports: [CommonModule, SkillBadgeComponent, AvailabilityIndicatorComponent, AppHoverLiftDirective], // Añadir la directiva personalizada al array de imports
   templateUrl: './team-member-card.component.html',
   styleUrl: './team-member-card.component.css',
 })
