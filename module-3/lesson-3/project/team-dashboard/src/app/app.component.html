@@ -1,0 +1,52 @@
+<div class="dashboard">
+  <app-header [companyName]="companyName" [userName]="currentUser" />
+
+  <main class="dashboard-content">
+    <section class="team-section">
+      <h2 class="section-title">Miembros del Equipo</h2>
+
+      <div class="search-container">
+        <input
+          type="text"
+          placeholder="Buscar por nombre..."
+          [(ngModel)]="searchTerm"
+          class="search-input"
+        />
+      </div>
+
+      <div class="filters">
+        <button
+          class="filter-btn"
+          [class.active]="currentFilter === 'todos'"
+          (click)="setFilter('todos')"
+        >
+          Todos ({{ teamMembers.length }})
+        </button>
+        <button
+          class="filter-btn"
+          [class.active]="currentFilter === 'disponible'"
+          (click)="setFilter('disponible')"
+        >
+          Disponibles ({{ availableCount }})
+        </button>
+        <button
+          class="filter-btn"
+          [class.active]="currentFilter === 'ingenieria'"
+          (click)="setFilter('ingenieria')"
+        >
+          Engineering ({{ engineeringCount }})
+        </button>
+      </div>
+
+      <div class="members-grid" *ngIf="filteredMembers.length > 0; else noTeamMembers">
+        <app-team-member-card
+          *ngFor="let member of filteredMembers"
+          [member]="member"
+          (memberInteraction)="onMemberInteraction($event)"
+        >
+        </app-team-member-card>
+      </div>
+      <ng-template #noTeamMembers>No se encontraron miembros registrados</ng-template>
+    </section>
+  </main>
+</div>
