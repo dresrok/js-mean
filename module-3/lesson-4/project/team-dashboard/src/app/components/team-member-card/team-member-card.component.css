@@ -1,0 +1,179 @@
+.member-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  min-height: 480px;
+}
+
+/* .member-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+} */
+
+.member-card.detailed {
+  border: 2px solid #667eea;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.card-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.basic-info {
+  flex: 1;
+}
+
+.basic-info h3 {
+  margin: 0;
+  color: #333;
+}
+
+.role {
+  color: #667eea;
+  font-weight: 500;
+  margin: 5px 0;
+}
+
+.department {
+  color: #999;
+  font-size: 0.9em;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+  padding: 5px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.label {
+  font-weight: 500;
+  color: #666;
+}
+
+.value {
+  color: #333;
+}
+
+.no-project {
+  color: #999;
+  font-style: italic;
+}
+
+.skills-section {
+  margin-top: 15px;
+}
+
+.skills-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.card-footer {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.contact-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9em;
+  margin-bottom: 10px;
+}
+
+.email,
+.phone {
+  color: #666;
+}
+
+.footer-actions {
+  display: flex;
+  justify-content: center;
+}
+
+/* Action Button Styles */
+.action-btn {
+  background: transparent;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.85em;
+}
+
+.favorite-btn {
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.favorite-btn:hover {
+  background: #e9ecef;
+  transform: scale(1.1);
+}
+
+.favorite-btn.active {
+  background: #ffd700;
+  border-color: #ffc107;
+  color: #fff;
+}
+
+.contact-btn {
+  background: #667eea;
+  color: white;
+  border: 1px solid #667eea;
+  padding: 8px 16px;
+}
+
+.contact-btn:hover {
+  background: #5a6fd8;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 5px rgba(102, 126, 234, 0.3);
+}
+
+.mentor-badge {
+  background: #28a745;
+  color: white;
+  font-size: 0.75em;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-weight: 500;
+  margin-left: 8px;
+}
+
+.mentee-badge {
+  background: #17a2b8;
+  color: white;
+  font-size: 0.75em;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-weight: 500;
+  margin-left: 8px;
+}
