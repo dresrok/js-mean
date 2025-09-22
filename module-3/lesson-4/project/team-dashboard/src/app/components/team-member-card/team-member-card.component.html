@@ -1,0 +1,69 @@
+<div class="member-card" appHoverLift>
+  <div class="card-header">
+    <img [src]="member.avatar" [alt]="member.name" class="avatar" />
+    <div class="basic-info">
+      <h3>{{ member.name | titlecase }}</h3>
+      <p class="role">{{ member.role }}</p>
+      <p class="department">{{ member.department }}</p>
+    </div>
+    <div class="card-actions">
+      <button
+        class="action-btn favorite-btn"
+        [class.active]="isFavorite"
+        (click)="onToggleFavorite($event)"
+        [title]="isFavorite ? 'Remover de favoritos' : 'Añadir a favoritos'"
+      >
+        ⭐
+      </button>
+      <app-availability [status]="member.availability" />
+    </div>
+  </div>
+
+  <div class="card-body">
+    <div class="info-row">
+      <span class="label">Experiencia:</span>
+      <span class="value"
+        >{{ member.experience }} años ({{ member.experience | seniorityLevel }})</span
+      >
+      <!-- *ngIf with else example: Show mentor badge or mentee badge -->
+      <!-- <span
+        class="mentor-badge"
+        *ngIf="(member.experience | seniorityLevel) === 'Senior'; else menteeTemplate"
+        >Mentor Disponible</span
+      >
+      <ng-template #menteeTemplate>
+        <span class="mentee-badge">Buscando Mentor</span>
+      </ng-template> -->
+    </div>
+
+    <div class="info-row">
+      <span class="label">Email:</span>
+      <span class="value">{{ member.email }}</span>
+    </div>
+
+    <div class="info-row">
+      <span class="label">Teléfono:</span>
+      <span class="value">{{ member.phone | phoneFormat }}</span>
+    </div>
+
+    <div class="info-row">
+      <span class="label">Fecha de ingreso:</span>
+      <span class="value">{{ member.joinDate | date:'MMMM yyyy':'':'es' }}</span>
+      <!-- <span class="value">{{ member.joinDate | yearsAgo:'long' }}</span> -->
+    </div>
+
+    <div class="info-row">
+      <span class="label">Proyecto Actual:</span>
+      <span class="value" [class.no-project]="!member.currentProject">
+        {{ member.currentProject || 'Sin asignar' }}
+      </span>
+    </div>
+
+    <div class="skills-section">
+      <span class="label">Habilidades:</span>
+      <div class="skills-container">
+        <app-skill-badge *ngFor="let skill of member.skills; let i = index" [skill]="skill" />
+      </div>
+    </div>
+  </div>
+</div>
