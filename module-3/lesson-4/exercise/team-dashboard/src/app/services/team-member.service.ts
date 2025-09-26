@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TeamMember } from '../models/team-member.interface';
 import { TEAM_MEMBERS_DATA } from '../data/team-members.data';
-import { LoggerService } from './logger.service';
+import { LoggerService } from './logger.service'; // Importar el servicio LoggerService
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ import { LoggerService } from './logger.service';
 export class TeamMemberService {
   private teamMembers: TeamMember[] = TEAM_MEMBERS_DATA;
 
-  constructor(private logger: LoggerService) {
+  constructor(private logger: LoggerService) { // Inyectar el servicio LoggerService
     this.logger.logTeamMemberAction('Servicio inicializado', { count: this.teamMembers.length });
   }
 

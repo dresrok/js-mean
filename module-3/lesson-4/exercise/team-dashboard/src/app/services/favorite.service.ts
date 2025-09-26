@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { LoggerService } from './logger.service';
+import { LoggerService } from './logger.service'; // Importar el servicio LoggerService
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +8,7 @@ export class FavoriteService {
   private readonly STORAGE_KEY = 'team-favorites';
   private favorites: number[] = [];
 
-  constructor(private logger: LoggerService) {
+  constructor(private logger: LoggerService) { // Inyectar el servicio LoggerService
     this.loadFavorites();
     this.logger.logFavoriteAction('Servicio inicializado', this.favorites.length);
   }

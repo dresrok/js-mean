@@ -6,11 +6,11 @@ import { AppHoverLiftDirective } from '../../directives/app-hover-lift.directive
 import { TeamMember } from '../../models/team-member.interface';
 import { SeniorityLevelPipe } from '../../pipes/seniority-level.pipe';
 import { PhoneFormatPipe } from '../../pipes/phone-format.pipe';
-import { YearsAgoPipe } from '../../pipes/years-ago.pipe';
+import { YearsAgoPipe } from '../../pipes/years-ago.pipe'; // importar el pipe personalizado
 
 @Component({
   selector: 'app-team-member-card',
-  imports: [CommonModule, SkillBadgeComponent, AvailabilityIndicatorComponent, AppHoverLiftDirective, SeniorityLevelPipe, PhoneFormatPipe, YearsAgoPipe],
+  imports: [CommonModule, SkillBadgeComponent, AvailabilityIndicatorComponent, AppHoverLiftDirective, SeniorityLevelPipe, PhoneFormatPipe, YearsAgoPipe], // Añador el pipe personalizado al array de imports
   templateUrl: './team-member-card.component.html',
   styleUrl: './team-member-card.component.css',
 })
