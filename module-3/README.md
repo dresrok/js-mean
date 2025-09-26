@@ -2,3 +2,5 @@
 
 - [Clase 2: Componentes y plantillas en Angular](lesson-2/README.md)
 - [Clase 3: Data binding y directivas](lesson-3/README.md)
+- [Clase 4: Pipes, servicios e inyección de dependencias](lesson-4/README.md)
+- [Clase 5: Rutas en Angular con RouterModule](lesson-5/README.md)
