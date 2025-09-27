@@ -78,7 +78,7 @@ RouterModule permite que los usuarios naveguen por diferentes vistas sin recarga
 
 Las URLs representan el estado actual de la aplicación:
 
-- **Route Parameters**: `/team/123` → ID del miembro
+- **Route Parameters**: `/team-members/123` → ID del miembro
 - **Query Parameters**: `/dashboard?filter=available` → Filtros activos
 - **Fragments**: `/dashboard#statistics` → Sección específica
 
@@ -93,7 +93,7 @@ import { Routes } from '@angular/router'
 export const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'team/:id', component: TeamDetailComponent },
+  { path: 'team-members/:id', component: TeamDetailComponent },
   { path: 'settings', component: SettingsComponent },
   { path: '**', component: NotFoundComponent },
 ]
@@ -108,7 +108,7 @@ export const routes: Routes = [
 <a routerLink="/dashboard">Dashboard</a>
 
 <!-- Con parámetros -->
-<a routerLink="/team/{{member.id}}">Ver Perfil</a>
+<a routerLink="/team-members/{{member.id}}">Ver Perfil</a>
 
 <!-- Con estilos activos -->
 <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
@@ -147,7 +147,7 @@ export class TeamMemberCardComponent {
   constructor(private router: Router) {}
 
   viewMemberDetail() {
-    this.router.navigate(['/team', this.member.id])
+    this.router.navigate(['/team-members', this.member.id])
   }
 
 }
