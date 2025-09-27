@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>TeamDashboard</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  </head>
+  <body>
+    <app-root></app-root>
+    <script>
+      // In your main.ts or app.component.ts
+      if (window.self !== window.top) {
+        // We're in an iframe, override native dialog
+        window.alert = message => {
+          console.warn('[Alert Override]:', message);
+          // Show a custom in-page modal instead
+          const div = document.createElement('div');
+          div.style.cssText = `
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            z-index: 9999;
+          `;
+          div.textContent = message;
+          document.body.appendChild(div);
+          setTimeout(() => div.remove(), 3000);
+        };
+
+        window.confirm = message => {
+          console.warn('[Confirm Override]:', message);
+          // Return true by default or implement custom logic
+          return true;
+        };
+      }
+    </script>
+  </body>
+</html>

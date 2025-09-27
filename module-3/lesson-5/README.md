@@ -6,3 +6,4 @@ Esta clase aborda los conceptos fundamentales de Rutas en Angular con RouterModu
 
 - **docs/**: Presentación teórica sobre Rutas en Angular con RouterModule
 - **project/**: Archivos de la sesión práctica con ejemplos de implementación
+  - En **/team-dashboard** encontraran la aplicación actualizada con la nueva arquitectura de páginas y componentes. Solo deben instalar las dependencias con `npm install` y ejecutar el servidor `ng serve`.
