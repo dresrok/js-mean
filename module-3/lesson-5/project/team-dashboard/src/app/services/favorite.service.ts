@@ -5,7 +5,7 @@ import { LoggerService } from './logger.service';
   providedIn: 'root'
 })
 export class FavoriteService {
-  private readonly STORAGE_KEY = 'favorites';
+  private readonly STORAGE_KEY = 'team-favorites';
   private favorites: number[] = [];
 
   constructor(private logger: LoggerService) {
