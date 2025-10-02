@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { TeamMember } from '../../../models/team-member.interface';
-import { TeamMemberService } from '../../../services/team-member.service';
-import { FavoriteService } from '../../../services/favorite.service';
-import { TeamMemberCardComponent } from '../../../components/team-member-card/team-member-card.component';
+import { TeamMember } from '../../models/team-member.interface';
+import { TeamMemberService } from '../../services/team-member.service';
+import { FavoriteService } from '../../services/favorite.service';
+import { TeamMemberCardComponent } from '../../components/team-member-card/team-member-card.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
