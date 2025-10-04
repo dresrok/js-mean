@@ -22,7 +22,7 @@ export const routes: Routes = [
   // Paso 3: Validadores built-in (default)
   { path: 'dashboard/validators', component: DashboardValidatorsComponent },
 
-  // Paso 5: Formulario simplificado - Información básica (Crear/Editar)
+  // Paso 4 y 5: Formulario simplificado - Información básica (Crear/Editar)
   { path: 'team-members/new', component: TeamMemberFormComponent },
   { path: 'team-members/:id/edit', component: TeamMemberFormComponentUpdate },
 
