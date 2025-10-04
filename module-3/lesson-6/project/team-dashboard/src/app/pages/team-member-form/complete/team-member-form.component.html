@@ -1,0 +1,257 @@
+<div class="form-container">
+  <div class="form-content">
+    <div class="form-header">
+      <h2 class="page-title">
+        {{ isEditMode ? 'Editar Miembro del Equipo' : 'Nuevo Miembro del Equipo' }}
+      </h2>
+      <p class="page-subtitle">Paso 5: Formulario Completo con FormBuilder y FormArray</p>
+    </div>
+
+    <form [formGroup]="memberForm" (ngSubmit)="onSubmit()" class="member-form">
+      <!-- Información Básica -->
+      <section class="form-section">
+        <h3 class="section-title">Información Básica</h3>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Nombre completo *</label>
+            <input
+              id="name"
+              type="text"
+              formControlName="name"
+              placeholder="Ej: Juan Pérez"
+              class="form-input"
+              [class.error]="isFieldInvalid('name')"
+            />
+            <span class="error-message" *ngIf="isFieldInvalid('name')">
+              {{ getFieldError('name') }}
+            </span>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input
+              id="email"
+              type="email"
+              formControlName="email"
+              placeholder="juan.perez@company.com"
+              class="form-input"
+              [class.error]="isFieldInvalid('email')"
+            />
+            <span class="error-message" *ngIf="isFieldInvalid('email')">
+              {{ getFieldError('email') }}
+            </span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="phone">Teléfono *</label>
+            <input
+              id="phone"
+              type="tel"
+              formControlName="phone"
+              placeholder="+(34) 600 123 456"
+              class="form-input"
+              [class.error]="isFieldInvalid('phone')"
+            />
+            <span class="error-message" *ngIf="isFieldInvalid('phone')">
+              {{ getFieldError('phone') }}
+            </span>
+          </div>
+
+          <div class="form-group">
+            <label for="avatar">URL del Avatar *</label>
+            <input
+              id="avatar"
+              type="url"
+              formControlName="avatar"
+              placeholder="https://..."
+              class="form-input"
+              [class.error]="isFieldInvalid('avatar')"
+            />
+            <span class="error-message" *ngIf="isFieldInvalid('avatar')">
+              {{ getFieldError('avatar') }}
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Información Laboral -->
+      <section class="form-section">
+        <h3 class="section-title">Información Laboral</h3>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="role">Cargo *</label>
+            <input
+              id="role"
+              type="text"
+              formControlName="role"
+              placeholder="Ej: Senior Developer"
+              class="form-input"
+              [class.error]="isFieldInvalid('role')"
+            />
+            <span class="error-message" *ngIf="isFieldInvalid('role')">
+              {{ getFieldError('role') }}
+            </span>
+          </div>
+
+          <div class="form-group">
+            <label for="department">Departamento *</label>
+            <select
+              id="department"
+              formControlName="department"
+              class="form-select"
+              [class.error]="isFieldInvalid('department')"
+            >
+              <option value="">Selecciona un departamento</option>
+              <option *ngFor="let dept of departments" [value]="dept">{{ dept }}</option>
+            </select>
+            <span class="error-message" *ngIf="isFieldInvalid('department')">
+              {{ getFieldError('department') }}
+            </span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="availability">Disponibilidad *</label>
+            <select
+              id="availability"
+              formControlName="availability"
+              class="form-select"
+              [class.error]="isFieldInvalid('availability')"
+            >
+              <option *ngFor="let status of availabilityOptions" [value]="status">
+                {{ status | titlecase }}
+              </option>
+            </select>
+            <span class="error-message" *ngIf="isFieldInvalid('availability')">
+              {{ getFieldError('availability') }}
+            </span>
+          </div>
+
+          <div class="form-group">
+            <label for="experience">Años de experiencia *</label>
+            <input
+              id="experience"
+              type="number"
+              formControlName="experience"
+              placeholder="0"
+              min="0"
+              max="50"
+              class="form-input"
+              [class.error]="isFieldInvalid('experience')"
+            />
+            <span class="error-message" *ngIf="isFieldInvalid('experience')">
+              {{ getFieldError('experience') }}
+            </span>
+          </div>
+
+          <div class="form-group">
+            <label for="joinDate">Fecha de ingreso *</label>
+            <input
+              id="joinDate"
+              type="date"
+              formControlName="joinDate"
+              class="form-input"
+              [class.error]="isFieldInvalid('joinDate')"
+            />
+            <span class="error-message" *ngIf="isFieldInvalid('joinDate')">
+              {{ getFieldError('joinDate') }}
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Habilidades (FormArray) -->
+      <section class="form-section">
+        <h3 class="section-title">Habilidades (mínimo 1 requerida)</h3>
+
+        <!-- Habilidades seleccionadas -->
+        <div class="selected-skills" formArrayName="skills">
+          <div
+            *ngFor="let skill of skillsArray.controls; let i = index"
+            class="skill-item"
+          >
+            <input
+              [formControlName]="i"
+              placeholder="Escribe una habilidad"
+              class="skill-input"
+            />
+            <button
+              type="button"
+              (click)="removeSkill(i)"
+              class="btn-remove-skill"
+              title="Eliminar habilidad"
+            >
+              ✕
+            </button>
+          </div>
+
+          <div *ngIf="skillsArray.length === 0" class="empty-skills">
+            No hay habilidades agregadas. Selecciona una habilidad sugerida o agrega una personalizada.
+          </div>
+        </div>
+
+        <!-- Botón para agregar habilidad personalizada -->
+        <button
+          type="button"
+          (click)="addSkill()"
+          class="btn-add-skill"
+        >
+          + Agregar Habilidad Personalizada
+        </button>
+
+        <!-- Habilidades sugeridas -->
+        <div class="suggested-skills">
+          <h4 class="subsection-title">Habilidades Sugeridas</h4>
+          <div class="skills-grid">
+            <button
+              *ngFor="let skill of skillsOptions"
+              type="button"
+              (click)="addSkill(skill)"
+              class="skill-suggestion"
+              [class.selected]="isSkillSelected(skill)"
+              [disabled]="isSkillSelected(skill)"
+            >
+              {{ skill }}
+              <span *ngIf="isSkillSelected(skill)" class="checkmark">✓</span>
+            </button>
+          </div>
+        </div>
+
+        <span class="error-message" *ngIf="memberForm.get('skills')?.invalid && memberForm.get('skills')?.touched">
+          Se requiere al menos una habilidad
+        </span>
+      </section>
+
+      <!-- Botones de acción -->
+      <div class="form-actions">
+        <button
+          type="button"
+          (click)="onCancel()"
+          class="btn-cancel"
+          [disabled]="isSubmitting"
+        >
+          Cancelar
+        </button>
+
+        <button
+          type="submit"
+          class="btn-submit"
+          [disabled]="memberForm.invalid || isSubmitting"
+        >
+          <span *ngIf="!isSubmitting">{{ isEditMode ? 'Actualizar' : 'Crear' }} Miembro</span>
+          <span *ngIf="isSubmitting">Guardando...</span>
+        </button>
+      </div>
+
+      <!-- Estado del formulario (para debugging) -->
+      <div class="form-status" *ngIf="!memberForm.valid">
+        <small>Estado del formulario: {{ memberForm.valid ? 'Válido ✓' : 'Inválido ✗' }}</small>
+      </div>
+    </form>
+  </div>
+</div>

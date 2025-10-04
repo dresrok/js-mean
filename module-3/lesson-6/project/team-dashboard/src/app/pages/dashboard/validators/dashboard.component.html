@@ -1,0 +1,54 @@
+<div class="dashboard">
+  <main class="dashboard-content">
+    <section class="team-section">
+      <div class="section-header">
+        <h2 class="section-title">Miembros del Equipo - Paso 3: Validadores</h2>
+        <a routerLink="/team-members/new" class="btn-new-member">Nuevo Miembro</a>
+      </div>
+
+      <!-- Paso 3: FormGroup con validadores built-in -->
+      <div class="filters-container" [formGroup]="filterForm">
+        <div class="filters-row">
+          <div class="form-group">
+            <input
+              type="text"
+              formControlName="searchTerm"
+              placeholder="Buscar por nombre (mín. 2 caracteres)..."
+              class="search-input"
+              [class.error]="isFieldInvalid('searchTerm')"
+            />
+            <span class="error-message" *ngIf="isFieldInvalid('searchTerm')">
+              {{ getFieldError('searchTerm') }}
+            </span>
+          </div>
+
+          <select formControlName="department" class="filter-select" [attr.disabled]="shouldDisableSelects ? '' : null">
+            <option value="todos">Todos los departamentos</option>
+            <option value="Ingeniería">Ingeniería</option>
+            <option value="Diseño">Diseño</option>
+            <option value="Infraestructura">Infraestructura</option>
+            <option value="Producto">Producto</option>
+          </select>
+
+          <select formControlName="availability" class="filter-select" [attr.disabled]="shouldDisableSelects ? '' : null">
+            <option value="todos">Todas las disponibilidades</option>
+            <option value="disponible">Disponible</option>
+            <option value="ocupado">Ocupado</option>
+            <option value="ausente">Ausente</option>
+            <option value="desconectado">Desconectado</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="members-grid" *ngIf="filteredMembers.length > 0; else noTeamMembers">
+        <app-team-member-card
+          *ngFor="let member of filteredMembers"
+          [member]="member"
+          [isFavorite]="isMemberFavorite(member.id)"
+          (clickFavorite)="onClickFavorite($event)"
+        ></app-team-member-card>
+      </div>
+      <ng-template #noTeamMembers>No se encontraron miembros registrados</ng-template>
+    </section>
+  </main>
+</div>
