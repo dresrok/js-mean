@@ -5,3 +5,4 @@
 - [Clase 4: Pipes, servicios e inyección de dependencias](lesson-4/README.md)
 - [Clase 5: Rutas en Angular con RouterModule](lesson-5/README.md)
 - [Clase 6: Formularios reactivos y validaciones](lesson-6/README.md)
+- [Clase 7: Comunicación con APIs REST mediante HttpClient](lesson-7/README.md)
