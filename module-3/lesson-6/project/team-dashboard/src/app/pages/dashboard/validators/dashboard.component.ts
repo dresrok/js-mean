@@ -76,11 +76,6 @@ export class DashboardValidatorsComponent implements OnInit {
     return '';
   }
 
-  get shouldDisableSelects(): boolean {
-    const searchField = this.filterForm.get('searchTerm');
-    return !!(searchField && searchField.invalid && searchField.touched);
-  }
-
   onClickFavorite(data: { member: TeamMember }) {
     this.favoriteService.toggleFavorite(data.member.id);
   }

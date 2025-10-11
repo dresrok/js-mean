@@ -22,7 +22,7 @@
             </span>
           </div>
 
-          <select formControlName="department" class="filter-select" [attr.disabled]="shouldDisableSelects ? '' : null">
+          <select formControlName="department" class="filter-select" [attr.disabled]="isFieldInvalid('searchTerm') ? '' : null">
             <option value="todos">Todos los departamentos</option>
             <option value="Ingeniería">Ingeniería</option>
             <option value="Diseño">Diseño</option>
@@ -30,7 +30,7 @@
             <option value="Producto">Producto</option>
           </select>
 
-          <select formControlName="availability" class="filter-select" [attr.disabled]="shouldDisableSelects ? '' : null">
+          <select formControlName="availability" class="filter-select" [attr.disabled]="isFieldInvalid('searchTerm') ? '' : null">
             <option value="todos">Todas las disponibilidades</option>
             <option value="disponible">Disponible</option>
             <option value="ocupado">Ocupado</option>
