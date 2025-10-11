@@ -1,0 +1,68 @@
+<div class="member-card" appHoverLift>
+  <!-- añadir directiva -->
+  <div class="card-header">
+    <img [src]="member.avatar" [alt]="member.name" class="avatar" />
+    <div class="basic-info">
+      <h3>{{ member.name | titlecase }}</h3>
+      <p class="role">{{ member.role }}</p>
+      <p class="department">{{ member.department }}</p>
+    </div>
+    <div class="card-actions">
+      <button
+        class="action-btn favorite-btn"
+        [class.active]="isFavorite"
+        (click)="onToggleFavorite($event)"
+      >
+        ⭐
+      </button>
+      <app-availability [status]="member.availability" />
+    </div>
+  </div>
+
+  <div class="card-body">
+    <div class="info-row">
+      <span class="label">Experiencia:</span>
+      <span class="value"
+        >{{ member.experience }} años ({{ member.experience | seniorityLevel }})</span
+      >
+    </div>
+
+    <div class="info-row">
+      <span class="label">Email:</span>
+      <span class="value">{{ member.email }}</span>
+    </div>
+
+    <div class="info-row">
+      <span class="label">Teléfono:</span>
+      <span class="value">{{ member.phone | phoneFormat : 'internacional' }}</span>
+    </div>
+
+    <div class="info-row">
+      <span class="label">Fecha de ingreso:</span>
+      <span class="value">{{ member.joinDate | yearsAgo : 'long' }}</span>
+    </div>
+
+    <div class="info-row">
+      <span class="label">Proyecto Actual:</span>
+      <span class="value">{{ member.currentProject }}</span>
+    </div>
+
+    <div class="skills-section">
+      <span class="label">Habilidades:</span>
+      <div class="skills-container">
+        <app-skill-badge *ngFor="let skill of member.skills" [skill]="skill"> </app-skill-badge>
+      </div>
+    </div>
+
+    <!-- Botón ver detalle --->
+    <div class="card-footer">
+      <button
+        class="detail-btn"
+        (click)="viewMemberDetail()"
+        [attr.aria-label]="'Ver detalles de ' + member.name"
+      >
+        {{ memberDetailBtnText }}
+      </button>
+    </div>
+  </div>
+</div>
