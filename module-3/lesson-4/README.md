@@ -8,4 +8,4 @@ Esta clase aborda los conceptos fundamentales de Pipes, servicios e inyección d
 - **project/**: Archivos de la sesión práctica con ejemplos de implementación
 - **exercise/**: Reto propuesto para aplicar los conocimientos adquiridos
 
-![injector](./docs//assets/injector.png)
+![injector](./docs/assets/injector.png)

@@ -1,0 +1,55 @@
+<!-- Loading state with LoadingComponent -->
+<app-loading [isLoading]="isLoading" [message]="'Cargando información del miembro...'"></app-loading>
+
+<!-- Success state -->
+<div class="member-detail" *ngIf="member && !isLoading">
+  <!-- Breadcrumb navigation -->
+  <nav class="breadcrumb">
+    <a routerLink="/dashboard">Dashboard</a>
+    <span class="separator">›</span>
+    <span class="current">{{ member.name | titlecase }}</span>
+  </nav>
+
+  <!-- Member header -->
+  <header class="member-header">
+    <img [src]="member.avatar" [alt]="member.name" class="member-avatar-large" />
+    <div class="member-info">
+      <h1>{{ member.name | titlecase }}</h1>
+      <p class="member-title">{{ member.role }}</p>
+      <div class="member-meta">
+        <app-availability [status]="member.availability"></app-availability>
+        <span class="department">{{ member.department }}</span>
+        <span class="seniority">{{ member.experience | seniorityLevel }}</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Contact information -->
+  <section class="contact-section">
+    <h2>Información de Contacto</h2>
+    <div class="contact-grid">
+      <div class="contact-item"><strong>Email:</strong> {{ member.email }}</div>
+      <div class="contact-item"><strong>Teléfono:</strong> {{ member.phone | phoneFormat }}</div>
+      <div class="contact-item">
+        <strong>Inicio:</strong> {{ member.joinDate | date : 'dd/MM/yyyy' }} ({{
+          member.joinDate | yearsAgo
+        }})
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section class="skills-section">
+    <h2>Habilidades Técnicas</h2>
+    <div class="skills-container">
+      <app-skill-badge *ngFor="let skill of member.skills" [skill]="skill"> </app-skill-badge>
+    </div>
+  </section>
+
+  <!-- Actions -->
+  <div class="actions">
+    <a routerLink="/dashboard" class="back-btn">Volver al Dashboard</a>
+    <a [routerLink]="['/team-members', member.id, 'edit']" class="edit-btn">Editar Miembro</a>
+    <button (click)="deleteMember()" class="delete-btn">Eliminar Miembro</button>
+  </div>
+</div>

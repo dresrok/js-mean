@@ -58,27 +58,33 @@ export class TeamMemberFormComponent implements OnInit {
       // Generate avatar URL from name
       const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(formValue.name || '')}&background=667eea&color=fff`;
 
-      setTimeout(() => {
-        // Create new member with default values for required fields
-        const memberData: Omit<TeamMember, 'id'> = {
-          name: formValue.name,
-          email: formValue.email,
-          phone: formValue.phone,
-          avatar: avatarUrl,
-          role: 'Por definir',
-          department: 'Por definir',
-          availability: 'disponible' as const,
-          experience: 0,
-          joinDate: new Date(),
-          skills: formValue.skills || []
-        };
+      // Create new member with default values for required fields
+      const memberData: Omit<TeamMember, 'id'> = {
+        name: formValue.name,
+        email: formValue.email,
+        phone: formValue.phone,
+        avatar: avatarUrl,
+        role: 'Por definir',
+        department: 'Por definir',
+        availability: 'disponible' as const,
+        experience: 0,
+        joinDate: new Date(),
+        skills: formValue.skills || [],
+        currentProject: 'Sin asignar'
+      };
 
-        const newMember = this.teamMemberService.addMember(memberData);
-        alert(`Miembro "${newMember.name}" creado exitosamente`);
-
-        this.isSubmitting = false;
-        this.router.navigate(['/dashboard']);
-      }, 500);
+      this.teamMemberService.createMember(memberData).subscribe({
+        next: (newMember) => {
+          alert(`Miembro "${newMember.name}" creado exitosamente`);
+          this.isSubmitting = false;
+          this.router.navigate(['/dashboard']);
+        },
+        error: (error) => {
+          console.error('Error al crear miembro:', error);
+          alert('Error al crear el miembro. Por favor, intenta de nuevo.');
+          this.isSubmitting = false;
+        }
+      });
     } else {
       this.markAllFieldsAsTouched();
     }

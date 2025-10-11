@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { RouterLink, ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil, startWith } from 'rxjs/operators';
 import { TeamMember } from '../../../models/team-member.interface';
-import { TeamMemberService } from '../../../services/team-member.service';
 import { FavoriteService } from '../../../services/favorite.service';
 import { TeamMemberCardComponent } from '../../../components/team-member-card/team-member-card.component';
 
@@ -13,11 +14,14 @@ import { TeamMemberCardComponent } from '../../../components/team-member-card/te
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
-export class DashboardValidatorsComponent implements OnInit {
+export class DashboardResolverComponent implements OnInit, OnDestroy {
   teamMembers: TeamMember[] = [];
   filteredMembers: TeamMember[] = [];
 
-  // Paso 3: FormGroup con validadores built-in
+  // Subject usado como "señal de destrucción" para cancelar suscripciones de formularios reactivos
+  private destroy$ = new Subject<void>();
+
+  // FormGroup con validadores built-in
   filterForm = new FormGroup({
     searchTerm: new FormControl('', [Validators.minLength(2)]),
     department: new FormControl('todos', [Validators.required]),
@@ -25,28 +29,41 @@ export class DashboardValidatorsComponent implements OnInit {
   });
 
   constructor(
-    private teamMemberService: TeamMemberService,
+    private route: ActivatedRoute,
     private favoriteService: FavoriteService
   ) { }
 
   ngOnInit() {
-    this.teamMembers = this.teamMemberService.getTeamMembers();
-    this.filteredMembers = this.teamMembers;
+    // Obtener datos precargados del resolver
+    this.teamMembers = this.route.snapshot.data['members'];
+    this.filteredMembers = this.teamMembers; // Mostrar todos inicialmente
 
-    // Solo aplicar filtros si el formulario es válido
-    this.filterForm.valueChanges.subscribe(filters => {
-      if (this.filterForm.valid) {
-        this.applyAdvancedFilters(filters);
-      }
-    });
+    // Configurar filtros reactivos
+    // startWith emite el valor actual del formulario como primer evento
+    // Esto garantiza que los filtros se apliquen desde el momento en que se carga el componente
+    this.filterForm.valueChanges
+      .pipe(
+        startWith(this.filterForm.value), // Emitir valor inicial inmediatamente
+        takeUntil(this.destroy$) // Cancelar suscripción cuando el componente se destruya
+      )
+      .subscribe(filters => {
+        if (this.filterForm.valid) {
+          this.applyAdvancedFilters(filters);
+        }
+      });
   }
 
   private applyAdvancedFilters(filters: any): void {
     let filtered = this.teamMembers;
 
-    // Validar longitud mínima en búsqueda usando el servicio
+    // Filtro por búsqueda de nombre (aplicado en el cliente)
+    // Nota: En una implementación real, podrías hacer la búsqueda en el servidor
+    // usando el método searchMembers() del servicio para mejor rendimiento
     if (filters.searchTerm && filters.searchTerm.length >= 2) {
-      filtered = this.teamMemberService.searchMembers(filters.searchTerm);
+      const term = filters.searchTerm.toLowerCase();
+      filtered = filtered.filter(member =>
+        member.name.toLowerCase().includes(term)
+      );
     }
 
     // Filtro por departamento
@@ -80,7 +97,13 @@ export class DashboardValidatorsComponent implements OnInit {
     this.favoriteService.toggleFavorite(data.member.id);
   }
 
-  isMemberFavorite(memberId: number) {
+  isMemberFavorite(memberId: string) {
     return this.favoriteService.isFavorite(memberId)
+  }
+
+  ngOnDestroy(): void {
+    // Emitir señal para cancelar todas las suscripciones que usan takeUntil(this.destroy$)
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
