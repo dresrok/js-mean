@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { TeamMemberService } from '../../../services/team-member.service';
-import { TeamMember } from '../../../models/team-member.interface';
-import { LoadingComponent } from '../../../components/loading/loading.component';
+import { TeamMemberService } from '../../services/team-member.service';
+import { TeamMember } from '../../models/team-member.interface';
+import { LoadingComponent } from '../../components/loading/loading.component';
 
 @Component({
   selector: 'app-team-member-form',
@@ -15,16 +15,17 @@ import { LoadingComponent } from '../../../components/loading/loading.component'
 })
 export class TeamMemberFormComponent implements OnInit {
   memberForm!: FormGroup;
+  isSubmitting = false;
+
   isEditMode = false;
   memberId: string | null = null;
-  isSubmitting = false;
 
   constructor(
     private fb: FormBuilder,
-    private route: ActivatedRoute,
     private router: Router,
+    private route: ActivatedRoute,
     private teamMemberService: TeamMemberService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.initForm();
@@ -43,27 +44,16 @@ export class TeamMemberFormComponent implements OnInit {
     });
   }
 
-  get skillsArray(): FormArray {
-    return this.memberForm.get('skills') as FormArray;
-  }
-
-  addSkill() {
-    this.skillsArray.push(this.fb.control('', Validators.required));
-  }
-
-  removeSkill(index: number) {
-    this.skillsArray.removeAt(index);
-  }
-
   private checkEditMode() {
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
+      console.log(id);
       if (id && id !== 'new') {
         this.isEditMode = true;
         this.memberId = id;
         this.loadMemberData();
       }
-    });
+    })
   }
 
   private loadMemberData() {
@@ -94,6 +84,18 @@ export class TeamMemberFormComponent implements OnInit {
     }
   }
 
+  get skillsArray(): FormArray {
+    return this.memberForm.get('skills') as FormArray;
+  }
+
+  addSkill() {
+    this.skillsArray.push(this.fb.control('', Validators.required));
+  }
+
+  removeSkill(index: number) {
+    this.skillsArray.removeAt(index);
+  }
+
   onSubmit() {
     if (this.memberForm.valid) {
       this.isSubmitting = true;
@@ -103,7 +105,7 @@ export class TeamMemberFormComponent implements OnInit {
       const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(formValue.name || '')}&background=667eea&color=fff`;
 
       if (this.isEditMode && this.memberId) {
-        // Update existing member - PUT requires complete object
+        // Update
         const memberToUpdate: TeamMember = {
           id: this.memberId,
           name: formValue.name,
@@ -118,7 +120,6 @@ export class TeamMemberFormComponent implements OnInit {
           skills: formValue.skills || [],
           currentProject: 'Sin asignar'
         };
-
         this.teamMemberService.updateMember(this.memberId, memberToUpdate).subscribe({
           next: (updatedMember) => {
             alert(`Miembro "${updatedMember.name}" actualizado exitosamente`);
@@ -132,7 +133,6 @@ export class TeamMemberFormComponent implements OnInit {
           }
         });
       } else {
-        // Create new member
         const memberData: Omit<TeamMember, 'id'> = {
           name: formValue.name,
           email: formValue.email,
@@ -146,8 +146,7 @@ export class TeamMemberFormComponent implements OnInit {
           skills: formValue.skills || [],
           currentProject: 'Sin asignar'
         };
-
-        this.teamMemberService.createMember(memberData).subscribe({
+        this.teamMemberService.createMember(memberData as Omit<TeamMember, 'id'>).subscribe({
           next: (newMember) => {
             alert(`Miembro "${newMember.name}" creado exitosamente`);
             this.isSubmitting = false;
@@ -185,7 +184,6 @@ export class TeamMemberFormComponent implements OnInit {
       if (errors['required']) return `${fieldName} es requerido`;
       if (errors['email']) return 'Email inválido';
       if (errors['minlength']) return `Mínimo ${errors['minlength'].requiredLength} caracteres`;
-      if (errors['pattern']) return 'Formato inválido (debe ser URL válida)';
     }
     return '';
   }

@@ -1,0 +1,101 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+$primary-palette: mat.$violet-palette;
+$tertiary-palette: mat.$rose-palette;
+$font-family: ('Roboto', 'Helvetica Neue', sans-serif);
+
+$light-theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: $primary-palette,
+    tertiary: $tertiary-palette
+  ),
+  typography: (
+    plain-family: $font-family,
+    brand-family: $font-family
+  )
+));
+
+$dark-theme: mat.define-theme((
+  color: (
+    theme-type: dark,
+    primary: $primary-palette,
+    tertiary: $tertiary-palette
+  ),
+  typography: (
+    plain-family: $font-family,
+    brand-family: $font-family
+  )
+));
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+// Base styles - light theme by default
+html {
+  @include mat.all-component-themes($light-theme);
+  font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+}
+
+// Dark theme override
+html.dark-theme {
+  @include mat.all-component-colors($dark-theme);
+}
+
+body {
+  font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Material Icons */
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+mat-icon {
+  font-family: 'Material Icons' !important;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: 'liga';
+}
+
+button mat-icon {
+  margin-right: 8px;
+}
+
+button mat-icon:only-child {
+  margin-right: 0;
+}
+
+.mat-mdc-raised-button mat-icon {
+  vertical-align: middle;
+}
+
+mat-chip mat-icon {
+  margin-right: 4px;
+}

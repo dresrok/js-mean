@@ -1,8 +1,5 @@
-
-<app-loading [isLoading]="isLoading" [message]="'Cargando información del miembro...'"></app-loading>
-
-<!-- Success state -->
-<div class="member-detail" *ngIf="member && !isLoading">
+<!-- Member detail - datos garantizados por el resolver -->
+<div class="member-detail">
   <!-- Breadcrumb navigation -->
   <nav class="breadcrumb">
     <a routerLink="/dashboard">Dashboard</a>

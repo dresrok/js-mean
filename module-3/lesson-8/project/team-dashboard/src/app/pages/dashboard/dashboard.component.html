@@ -1,0 +1,66 @@
+<div class="dashboard">
+  <main class="dashboard-content">
+    <section class="team-section">
+      <div class="section-header">
+        <h2 class="section-title">Miembros del Equipo</h2>
+        <a routerLink="/team-members/new" class="btn-new-member">Nuevo Miembro</a>
+      </div>
+
+      <!-- Formulario de filtros -->
+      <div class="filters-container" [formGroup]="filterForm">
+        <div class="filters-row">
+          <div class="form-group">
+            <input
+              type="text"
+              formControlName="searchTerm"
+              placeholder="Buscar por nombre (mín. 2 caracteres)..."
+              class="search-input"
+              [class.error]="isFieldInvalid('searchTerm')"
+            />
+            @if(isFieldInvalid('searchTerm')) {
+            <span class="error-message">
+              {{ getFieldError('searchTerm') }}
+            </span>
+            }
+          </div>
+
+          <select
+            formControlName="department"
+            class="filter-select"
+            [attr.disabled]="isFieldInvalid('searchTerm') ? '' : null"
+          >
+            <option value="todos">Todos los departamentos</option>
+            <option value="Ingeniería">Ingeniería</option>
+            <option value="Diseño">Diseño</option>
+            <option value="Infraestructura">Infraestructura</option>
+            <option value="Producto">Producto</option>
+          </select>
+
+          <select
+            formControlName="availability"
+            class="filter-select"
+            [attr.disabled]="isFieldInvalid('searchTerm') ? '' : null"
+          >
+            <option value="todos">Todas las disponibilidades</option>
+            <option value="disponible">Disponible</option>
+            <option value="ocupado">Ocupado</option>
+            <option value="ausente">Ausente</option>
+            <option value="desconectado">Desconectado</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="members-grid">
+        @for(member of filteredMembers; track member.id) {
+        <app-team-member-card
+          [member]="member"
+          [isFavorite]="isMemberFavorite(member.id)"
+          (clickFavorite)="onClickFavorite($event)"
+        />
+        } @empty {
+        <p class="no-members">No se encontraron miembros registrados</p>
+        }
+      </div>
+    </section>
+  </main>
+</div>
