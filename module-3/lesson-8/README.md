@@ -1,12 +1,10 @@
-# Clase 7: Comunicación con APIs REST mediante HttpClient
+# Clase 8: Proyecto Final Impulso JavaScript
 
-Esta clase aborda los conceptos fundamentales de Comunicación con APIs REST mediante HttpClient.
-
-![injector](./docs/assets/json-server.png)
+Esta clase aborda ek de Proyecto Final Impulso JavaScript.
 
 ## Estructura del contenido
 
-- **docs/**: Presentación teórica sobre Comunicación con APIs REST mediante HttpClient
+- **docs/**: Presentación teórica sobre Proyecto Final Impulso JavaScript
 - **project/**: Archivos de la sesión práctica con ejemplos de implementación
   - **team-dashboard/**: Proyecto de dashboard de equipos
   - **search-movies/**: Proyecto de buscador de películas
