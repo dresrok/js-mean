@@ -97,7 +97,7 @@ export class TeamMemberFormComponent implements OnInit {
   onSubmit() {
     if (this.memberForm.valid) {
       this.isSubmitting = true;
-      const formValue = this.memberForm.value as Partial<TeamMember>;
+      const formValue = this.memberForm.value as TeamMember;
 
       // Generate avatar URL from name
       const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(formValue.name || '')}&background=667eea&color=fff`;
@@ -106,12 +106,12 @@ export class TeamMemberFormComponent implements OnInit {
         // Update existing member - PUT requires complete object
         const memberToUpdate: TeamMember = {
           id: this.memberId,
-          name: formValue.name || '',
-          email: formValue.email || '',
-          phone: formValue.phone || '',
+          name: formValue.name,
+          email: formValue.email,
+          phone: formValue.phone,
           avatar: avatarUrl,
           role: 'Por definir',
-          department: 'Ingeniería',
+          department: 'Por definir',
           availability: 'disponible' as const,
           experience: 0,
           joinDate: new Date(),
@@ -134,12 +134,12 @@ export class TeamMemberFormComponent implements OnInit {
       } else {
         // Create new member
         const memberData: Omit<TeamMember, 'id'> = {
-          name: formValue.name || '',
-          email: formValue.email || '',
-          phone: formValue.phone || '',
+          name: formValue.name,
+          email: formValue.email,
+          phone: formValue.phone,
           avatar: avatarUrl,
           role: 'Por definir',
-          department: 'Ingeniería',
+          department: 'Por definir',
           availability: 'disponible' as const,
           experience: 0,
           joinDate: new Date(),
