@@ -6,3 +6,4 @@
 - [Clase 5: Rutas en Angular con RouterModule](lesson-5/README.md)
 - [Clase 6: Formularios reactivos y validaciones](lesson-6/README.md)
 - [Clase 7: Comunicación con APIs REST mediante HttpClient](lesson-7/README.md)
+- [Clase 8: Proyecto Final Impulso JavaScript](lesson-8/README.md)
