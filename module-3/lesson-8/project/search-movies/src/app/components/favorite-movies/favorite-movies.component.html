@@ -1,0 +1,82 @@
+<div class="favorites-container">
+  <div class="favorites-header">
+    <h1>
+      <mat-icon>favorite</mat-icon>
+      Mis Películas Favoritas
+    </h1>
+    <p class="subtitle" *ngIf="hasMovies">
+      Tienes {{ moviesCount }} {{ moviesCount === 1 ? 'película' : 'películas' }} en favoritos
+    </p>
+  </div>
+
+  <!-- Action bar -->
+  <div class="action-bar" *ngIf="hasMovies">
+    <button
+      mat-raised-button
+      color="warn"
+      (click)="clearAllFavorites()"
+      class="clear-all-button"
+    >
+      <mat-icon>delete_sweep</mat-icon>
+      Limpiar todos los favoritos
+    </button>
+  </div>
+
+  <!-- Movies grid -->
+  <div class="movies-grid" *ngIf="hasMovies">
+    <mat-card *ngFor="let movie of favoriteMovies" class="movie-card">
+      <img
+        mat-card-image
+        [src]="getMoviePoster(movie.Poster)"
+        [alt]="movie.Title"
+        class="movie-poster"
+      />
+      
+      <mat-card-content>
+        <h3 class="movie-title">{{ movie.Title }}</h3>
+        
+        <div class="movie-info">
+          <mat-chip-set>
+            <mat-chip>
+              <mat-icon>calendar_today</mat-icon>
+              {{ movie.Year }}
+            </mat-chip>
+            <mat-chip>
+              <mat-icon>local_movies</mat-icon>
+              {{ movie.Type }}
+            </mat-chip>
+          </mat-chip-set>
+        </div>
+
+        <div class="imdb-info">
+          <mat-icon class="imdb-icon">info</mat-icon>
+          <span class="imdb-id">{{ movie.imdbID }}</span>
+        </div>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button
+          mat-raised-button
+          color="warn"
+          (click)="removeFavorite(movie)"
+          class="remove-button"
+        >
+          <mat-icon>delete</mat-icon>
+          Eliminar de Favoritos
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <!-- Empty state -->
+  <div class="empty-state" *ngIf="!hasMovies">
+    <mat-icon class="empty-icon">favorite_border</mat-icon>
+    <h2>No tienes películas favoritas</h2>
+    <p>Las películas que marques como favoritas aparecerán aquí</p>
+    <button mat-raised-button color="primary" routerLink="/search" class="search-link">
+      <mat-icon>search</mat-icon>
+      Buscar Películas
+    </button>
+  </div>
+</div>
+

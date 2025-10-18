@@ -1,0 +1,24 @@
+<mat-toolbar color="primary" class="header-toolbar">
+  <div class="toolbar-content">
+    <div class="app-title">
+      <mat-icon class="movie-icon">movie</mat-icon>
+      <span class="title-text">{{ appName }}</span>
+    </div>
+
+    <nav class="nav-buttons">
+      <button mat-button routerLink="/search" routerLinkActive="active-link" class="nav-button">
+        <mat-icon>search</mat-icon>
+        <span>Buscar Películas</span>
+      </button>
+      <button mat-button routerLink="/favorites" routerLinkActive="active-link" class="nav-button">
+        <mat-icon
+          [matBadge]="favoritesCount"
+          [matBadgeHidden]="favoritesCount === 0"
+          matBadgeColor="warn"
+          >favorite</mat-icon
+        >
+        <span>Favoritos</span>
+      </button>
+    </nav>
+  </div>
+</mat-toolbar>

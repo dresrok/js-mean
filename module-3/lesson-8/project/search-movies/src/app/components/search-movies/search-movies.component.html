@@ -1,0 +1,110 @@
+<div class="search-container">
+  <div class="search-header">
+    <h1>
+      <mat-icon>search</mat-icon>
+      Buscar Películas
+    </h1>
+    <p class="subtitle">Encuentra tus películas favoritas usando la base de datos de OMDB</p>
+  </div>
+
+  <div class="search-form">
+    <mat-form-field appearance="outline" class="search-input">
+      <mat-label>Buscar película</mat-label>
+      <input
+        matInput
+        [(ngModel)]="searchTerm"
+        placeholder="Ej: Avengers, Matrix, Star Wars..."
+        (keyup.enter)="searchMovies()"
+      />
+      <mat-icon matSuffix>movie_filter</mat-icon>
+    </mat-form-field>
+
+    <button
+      mat-raised-button
+      color="primary"
+      class="search-button"
+      (click)="searchMovies()"
+      [disabled]="isLoading"
+    >
+      <mat-icon>search</mat-icon>
+      Buscar
+    </button>
+
+    <button mat-raised-button class="clear-button" (click)="clearSearch()" *ngIf="hasSearched">
+      <mat-icon>clear</mat-icon>
+      Limpiar
+    </button>
+  </div>
+
+  <!-- Loading spinner -->
+  <div class="loading-container" *ngIf="isLoading">
+    <mat-spinner></mat-spinner>
+    <p>Buscando películas...</p>
+  </div>
+
+  <!-- Error message -->
+  <div class="error-message" *ngIf="errorMessage && !isLoading">
+    <mat-icon>error_outline</mat-icon>
+    <p>{{ errorMessage }}</p>
+  </div>
+
+  <!-- Movies grid -->
+  <div class="movies-grid" *ngIf="movies.length > 0 && !isLoading">
+    <mat-card *ngFor="let movie of movies" class="movie-card">
+      <img
+        mat-card-image
+        [src]="getMoviePoster(movie.Poster)"
+        [alt]="movie.Title"
+        class="movie-poster"
+      />
+
+      <mat-card-content>
+        <h3 class="movie-title">{{ movie.Title }}</h3>
+
+        <div class="movie-info">
+          <mat-chip-set>
+            <mat-chip>
+              <mat-icon>calendar_today</mat-icon>
+              {{ movie.Year }}
+            </mat-chip>
+            <mat-chip>
+              <mat-icon>local_movies</mat-icon>
+              {{ movie.Type }}
+            </mat-chip>
+          </mat-chip-set>
+        </div>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button
+          mat-raised-button
+          [color]="isFavorite(movie.imdbID) ? 'warn' : 'primary'"
+          (click)="toggleFavorite(movie)"
+          class="favorite-button"
+        >
+          <mat-icon>{{ isFavorite(movie.imdbID) ? 'favorite' : 'favorite_border' }}</mat-icon>
+          {{ isFavorite(movie.imdbID) ? 'En Favoritos' : 'Agregar a Favoritos' }}
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <!-- Pagination -->
+  <mat-paginator
+    *ngIf="totalResults > pageSize && !isLoading"
+    [length]="totalResults"
+    [pageSize]="pageSize"
+    [pageIndex]="currentPage - 1"
+    [hidePageSize]="true"
+    (page)="onPageChange($event)"
+    class="movies-paginator"
+  >
+  </mat-paginator>
+
+  <!-- Empty state -->
+  <div class="empty-state" *ngIf="!hasSearched && !isLoading">
+    <mat-icon class="empty-icon">movie_creation</mat-icon>
+    <h2>¡Comienza tu búsqueda!</h2>
+    <p>Ingresa el nombre de una película en el campo de búsqueda</p>
+  </div>
+</div>
