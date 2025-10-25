@@ -1,0 +1,65 @@
+
+.incidents-table {
+  th {
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+  }
+
+  td {
+    vertical-align: top;
+  }
+
+  .reference-link {
+    color: inherit;
+    text-decoration: none;
+
+    &:hover,
+    &:focus-visible {
+      text-decoration: underline;
+    }
+  }
+
+  .title {
+    font-weight: 600;
+  }
+
+  .status {
+    display: inline-block;
+    padding: 0.15rem 0.45rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .status-new {
+    background-color: #e3f2fd;
+    color: #0d47a1;
+  }
+
+  .status-ack {
+    background-color: #fff9c4;
+    color: #f57f17;
+  }
+
+  .status-in_progress {
+    background-color: #ede7f6;
+    color: #4527a0;
+  }
+
+  .status-resolved {
+    background-color: #c8e6c9;
+    color: #1b5e20;
+  }
+
+  .status-closed {
+    background-color: #eeeeee;
+    color: #424242;
+  }
+
+  .status-cancelled {
+    background-color: #ffebee;
+    color: #b71c1c;
+  }
+}
