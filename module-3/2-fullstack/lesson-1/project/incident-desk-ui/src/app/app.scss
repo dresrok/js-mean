@@ -1,0 +1,19 @@
+.top-bar {
+  .spacer {
+    flex: 1 1 auto;
+  }
+
+  a {
+    text-transform: none;
+  }
+
+  .active-link {
+    background: rgba(255, 255, 255, 0.16);
+  }
+}
+
+.content {
+  padding: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}

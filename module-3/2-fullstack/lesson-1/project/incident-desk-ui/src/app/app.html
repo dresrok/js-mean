@@ -1,0 +1,19 @@
+<mat-toolbar color="primary" class="top-bar">
+  <span>Tablero de Incidentes</span>
+  <span class="spacer"></span>
+  @for (link of links; track link.path) {
+  <a
+    mat-button
+    [routerLink]="link.path"
+    routerLinkActive="active-link"
+    [routerLinkActiveOptions]="{ exact: true }"
+  >
+    <mat-icon>{{ link.icon }}</mat-icon>
+    <span>{{ link.label }}</span>
+  </a>
+  }
+</mat-toolbar>
+
+<main class="content">
+  <router-outlet></router-outlet>
+</main>

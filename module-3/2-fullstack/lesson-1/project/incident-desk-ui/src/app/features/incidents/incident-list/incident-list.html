@@ -1,0 +1,63 @@
+<mat-card appearance="outlined">
+  <mat-card-header>
+    <mat-card-title>Incidentes</mat-card-title>
+    <mat-card-subtitle>Registro actual de incidentes reportados.</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <table mat-table [dataSource]="(incidents$ | async) ?? []" class="incidents-table">
+      <ng-container matColumnDef="reference">
+        <th mat-header-cell *matHeaderCellDef>Código</th>
+        <td mat-cell *matCellDef="let incident">
+          <a
+            [routerLink]="['/incidentes', incident.id]"
+            class="reference-link"
+          >
+            {{ incident.reference }}
+          </a>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef>Título</th>
+        <td mat-cell *matCellDef="let incident">
+          <div class="title">{{ incident.title }}</div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Estado</th>
+        <td mat-cell *matCellDef="let incident">
+          <span class="status status-{{ incident.status }}">{{ incident.status }}</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="severity">
+        <th mat-header-cell *matHeaderCellDef>Severidad</th>
+        <td mat-cell *matCellDef="let incident">{{ incident.severity }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="assignedTo">
+        <th mat-header-cell *matHeaderCellDef>Asignado</th>
+        <td mat-cell *matCellDef="let incident">
+          {{ incident.assignedToName || 'Sin asignar' }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="reportedBy">
+        <th mat-header-cell *matHeaderCellDef>Reportado por</th>
+        <td mat-cell *matCellDef="let incident">{{ incident.reportedByName }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="updatedAt">
+        <th mat-header-cell *matHeaderCellDef>Actualizado</th>
+        <td mat-cell *matCellDef="let incident">
+          {{ incident.updatedAt | date: 'medium' }}
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </mat-card-content>
+</mat-card>
