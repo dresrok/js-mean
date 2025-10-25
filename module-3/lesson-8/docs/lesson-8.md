@@ -1,82 +1,44 @@
-# Clase 8: Proyecto Final Impulso JavaScript
+---
+marp: true
+theme: gaia
+_class: lead
+paginate: true
+backgroundColor: #232126
+---
 
-Esta clase aborda el Proyecto Final Impulso JavaScript.
+<style scoped>
+  h1 strong {
+    color: #fbfbfb
+  }
+  p {
+    color: #fff
+  }
+</style>
 
-![injector](./docs/assets/json-server.png)
+![bg left:40% 80%](https://angular.dev/assets/images/press-kit/angular_wordmark_gradient.png)
 
-## Estructura del contenido
+# **Clase 8**
 
-- **docs/**: Presentación teórica sobre Proyecto Final Impulso JavaScript
-- **project/**: Archivos de la sesión práctica con ejemplos de implementación
+Proyecto Final Impulso JavaScript
 
-## Cómo ejecutar el proyecto
+---
 
-### Prerequisitos
+<!-- backgroundColor: #f6f7f9 -->
 
-- Node.js (versión 18 o superior)
-- npm (incluido con Node.js)
+<style>
+  small {
+    font-size: 38px;
+  }
+</style>
 
-### Instalación
+# Agenda
 
-1. Navega al directorio del proyecto:
-
-```bash
-cd module-3/lesson-8/project/team-dashboard
-```
-
-2. Instala las dependencias:
-
-```bash
-npm install
-```
-
-### Ejecución
-
-#### Desarrollo (Recomendado)
-
-Para ejecutar el servidor de desarrollo de Angular y la API REST simultáneamente:
-
-```bash
-npm run dev
-```
-
-- La aplicación Angular estará disponible en: `http://localhost:4200`
-- El servidor JSON Server (API) estará disponible en: `http://localhost:3000`
-
-#### Solo servidor Angular
-
-Para ejecutar únicamente el servidor de desarrollo de Angular:
-
-```bash
-npm start
-```
-
-#### Solo API REST
-
-Para ejecutar únicamente el servidor JSON Server:
-
-```bash
-npm run api
-```
-
-### Otros comandos útiles
-
-- **Build de producción:**
-
-```bash
-npm run build
-```
-
-Los archivos compilados se generarán en el directorio `dist/`.
-
-- **Ejecutar tests:**
-
-```bash
-npm test
-```
-
-- **Ejecutar linter:**
-
-```bash
-npm run lint
-```
+- Angular v17 -> Flujo de control `@if` `@for`
+- Angular Lifecycle
+  - `constructor`
+  - `ngOnChanges()`
+  - `ngOnInit()`
+  - `ngAfterViewInit()`
+  - `ngOnDestroy()`
+- Finalización App
+- Ejercicio con AI
