@@ -2,7 +2,6 @@
   "name": "incident-desk-api",
   "version": "0.1.0",
   "description": "Clase 1 backend for Incident Desk training module.",
-  "type": "module",
   "main": "dist/server.js",
   "scripts": {
     "dev": "tsx watch src/server.ts",

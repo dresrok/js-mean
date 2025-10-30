@@ -1,5 +1,5 @@
-import type { Incident } from '../types/incident.js';
-import { users } from './users.js';
+import type { Incident } from '../types/incident';
+import { users } from './users';
 
 const userById = new Map(users.map((user) => [user.id, user]));
 

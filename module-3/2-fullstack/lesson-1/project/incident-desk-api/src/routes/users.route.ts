@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import { users } from '../data/users.js';
+import { users } from '../data/users';
 
 // Crea el router para las rutas de los usuarios
 const router = Router();
