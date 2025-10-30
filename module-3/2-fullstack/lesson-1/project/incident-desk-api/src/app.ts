@@ -1,8 +1,8 @@
 import cors from 'cors';
 import express from 'express';
 
-import incidentsRouter from './routes/incidents.route.js';
-import usersRouter from './routes/users.route.js';
+import incidentsRouter from './routes/incidents.route';
+import usersRouter from './routes/users.route';
 
 export function createApp() {
   // Crea la aplicación de Express

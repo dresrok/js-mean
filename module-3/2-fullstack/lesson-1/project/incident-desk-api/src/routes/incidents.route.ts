@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import { incidents } from '../data/incidents.js';
+import { incidents } from '../data/incidents';
 
 // Crea el router para las rutas de los incidentes
 const router = Router();
