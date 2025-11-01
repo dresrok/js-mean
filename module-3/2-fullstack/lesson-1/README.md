@@ -1,10 +1,10 @@
-# Clase 1: Comunicación entre Angular y Node.js mediante APIs REST.
+# Clase 1: Comunicación entre Angular y Node.js mediante APIs REST
 
-Esta clase aborda los conceptos fundamentales de Comunicación entre Angular y Node.js mediante APIs REST., elementos esenciales para construir aplicaciones web modernas.
+Esta clase aborda los conceptos fundamentales de Comunicación entre Angular y Node.js mediante APIs REST, elementos esenciales para construir aplicaciones web modernas.
 
 ## Estructura del contenido
 
-- **docs/**: Presentación teórica sobre Comunicación entre Angular y Node.js mediante APIs REST.
+- **docs/**: Presentación teórica sobre Comunicación entre Angular y Node.js mediante APIs REST
 - **project/**: Archivos de la sesión práctica con ejemplos de implementación
   - **incident-desk-api/**: API REST para el sistema de incidencias
   - **incident-desk-ui/**: Interfaz de usuario para el sistema de incidencias
