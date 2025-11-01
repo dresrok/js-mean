@@ -17,7 +17,7 @@ backgroundColor: #232126
 
 # **Clase 1**
 
-Comunicación entre Angular y Node.js mediante APIs REST.
+Comunicación entre Angular y Node.js mediante APIs REST
 
 ---
 
