@@ -1,0 +1,12 @@
+.users-table {
+  th {
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+  }
+
+  .inactive {
+    color: #f44336;
+    font-weight: 600;
+  }
+}

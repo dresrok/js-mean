@@ -1,0 +1,85 @@
+<mat-card>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <mat-form-field appearance="outline">
+      <mat-label>Título</mat-label>
+      <input matInput formControlName="title" />
+      @if (form.controls.title.hasError('required')) {
+        <mat-error>El título es obligatorio</mat-error>
+      }
+      @if (form.controls.title.hasError('minlength')) {
+        <mat-error>Debe tener al menos 8 caracteres</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Descripción</mat-label>
+      <textarea matInput rows="4" formControlName="description"></textarea>
+      @if (form.controls.description.hasError('required')) {
+        <mat-error>La descripción es obligatoria</mat-error>
+      }
+    </mat-form-field>
+
+    <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-label>Severidad</mat-label>
+        <mat-select formControlName="severity">
+          <mat-option value="low">Baja</mat-option>
+          <mat-option value="medium">Media</mat-option>
+          <mat-option value="high">Alta</mat-option>
+          <mat-option value="critical">Crítica</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Estado</mat-label>
+        <mat-select formControlName="status">
+          <mat-option value="new">Nuevo</mat-option>
+          <mat-option value="ack">Reconocido</mat-option>
+          <mat-option value="in_progress">En progreso</mat-option>
+          <mat-option value="resolved">Resuelto</mat-option>
+          <mat-option value="closed">Cerrado</mat-option>
+          <mat-option value="cancelled">Cancelado</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Reportado por</mat-label>
+      <mat-select formControlName="reportedBy">
+        @for (user of reporters; track user._id) {
+          <mat-option [value]="user._id">
+            {{ user.fullName }}
+          </mat-option>
+        }
+      </mat-select>
+      @if (form.controls.reportedBy.hasError('required')) {
+        <mat-error>Debe seleccionar un reportero</mat-error>
+      }
+    </mat-form-field>
+
+    @if (agents.length > 0) {
+      <mat-form-field appearance="outline">
+        <mat-label>Asignado a</mat-label>
+        <mat-select formControlName="assignedTo">
+          @for (user of agents; track user._id) {
+            <mat-option [value]="user._id">
+              {{ user.fullName }}
+            </mat-option>
+          }
+        </mat-select>
+        @if (form.controls.assignedTo.hasError('required')) {
+          <mat-error>Debe seleccionar un agente</mat-error>
+        }
+      </mat-form-field>
+    }
+
+    <div class="actions">
+      <button matButton="outlined" type="button" (click)="cancel()" [disabled]="loading">
+        Cancelar
+      </button>
+      <button matButton="filled" type="submit" [disabled]="loading">
+        {{ loading ? 'Guardando…' : 'Guardar' }}
+      </button>
+    </div>
+  </form>
+</mat-card>

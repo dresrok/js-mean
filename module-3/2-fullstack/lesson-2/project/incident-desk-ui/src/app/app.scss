@@ -1,0 +1,29 @@
+.top-bar {
+  .spacer {
+    flex: 1 1 auto;
+  }
+
+  a {
+    text-transform: none;
+    &.active-link {
+      background-color: var(--mat-sys-primary);
+      color: var(--mat-sys-on-primary);
+    }
+  }
+}
+
+.content {
+  padding: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.snackbar-success {
+  background-color: #1b5e20;
+  color: #fff;
+}
+
+.snackbar-error {
+  background-color: #b71c1c;
+  color: #fff;
+}
