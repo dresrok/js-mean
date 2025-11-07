@@ -17,7 +17,7 @@ backgroundColor: #232126
 
 # **Clase 2**
 
-Profundizamos en la arquitectura fullstack, contrato de datos y formularios reactivos.
+CRUD completo en aplicaciones MEAN
 
 ---
 
@@ -33,8 +33,9 @@ Profundizamos en la arquitectura fullstack, contrato de datos y formularios reac
 
 - Mapear la arquitectura Angular ↔ Express ↔ MongoDB.
 - Modelar colecciones, documentos y esquemas con Mongoose.
-- Alinear el contrato `Incident` entre API y UI.
-- Migrar formularios clave a un enfoque reactivo con signals.
+- Alinear el contrato `Incident` y `User` entre API y UI.
+- Repaso de Formularios Reactivos.
+- Angular v16 (experimental) y v17 (estable) -> Signals `signal`.
 
 ---
 
@@ -61,105 +62,86 @@ Profundizamos en la arquitectura fullstack, contrato de datos y formularios reac
 - **Collection**: agrupación de documentos que comparten la misma intención (`incidents`, `users`). Piensa en ellas como tablas flexibles.
 - **Document**: instancia individual almacenada como BSON (Binary JSON). MongoDB lo serializa/consume como JSON, pero internamente maneja tipos extra (`ObjectId`, `Date`, `Decimal128`).
 - **Schema** (Mongoose): describe la forma del documento, validaciones y defaults. Nos asegura que lo que guardamos desde Angular coincide con lo que espera la base.
-- Buenas prácticas: usar enums para estados y severidades, timestamps automáticos y referencias (`ObjectId`) hacia usuarios.
 
 ---
 
 <!-- backgroundColor: #f6f7f9 -->
+
+# Entidades
+
+- `User`: quién reporta o resuelve el incidente.
+- `Incident`: incidentes reportados, por resolver y resueltos.
+- Relaciones:
+  - Un usuario `reporter` puede reportar muchos incidentes, y cada incidente tiene exactamente un **reporter** `reportedBy`.
+  - Un usuario `agent` puede ser asignado a cero o más incidentes; y cada incidente puede o no tener un **agent** `assignedTo`.
+
+---
+
+<!-- backgroundColor: #f6f7f9 -->
+
+<style scoped>
+  p {
+    text-align: center
+  }
+  img {
+    width: 60%;
+  }
+</style>
 
 # Modelo de entidades
 
-- `User`: gestor o analista; contiene `fullName`, `email`, `role`, `isActive`.
-- `Incident`: referencia legible, severidad, estado y responsables (`reportedBy`, `assignedTo`).
-- `IncidentTimelineEntry`: cambios de estado con `note`, `actor`, `createdAt`.
-- Relaciones: un incidente acumula timeline entries y se relaciona con usuarios por `ObjectId`.
-
-```mermaid
-classDiagram
-  class User {
-    ObjectId _id
-    string fullName
-    string email
-    UserRole role
-    boolean isActive
-  }
-
-  class IncidentTimelineEntry {
-    IncidentStatus status
-    string note
-    ObjectId actor
-    Date createdAt
-  }
-
-  class Incident {
-    ObjectId _id
-    string reference
-    string title
-    string description
-    IncidentSeverity severity
-    IncidentStatus status
-    string[] tags
-    Date createdAt
-    Date updatedAt
-  }
-
-  Incident "1" --> "1" User : reportedBy
-  Incident "0..1" --> "1" User : assignedTo
-  Incident "1" --> "*" IncidentTimelineEntry : timeline
-  IncidentTimelineEntry "*" --> "1" User : actor
-```
+![entidad-relación](./assets/er-diagram.png)
 
 ---
 
 <!-- backgroundColor: #f6f7f9 -->
 
-# Contrato API ↔ UI
+# Signals en Angular
 
-**Frontend y Backend deben compartir la misma forma de datos.**
+**Piensa en una signal como una caja mágica:**
+- 📦 Guardas algo dentro: `loading = signal(false)`
+- 👀 Para ver qué hay dentro, la abres: `loading()`
+- ✏️ Para cambiar lo que hay dentro: `loading.set(true)`
+- 🪄 La magia: cuando cambias el contenido, Angular **automáticamente** actualiza todo lo que usa esa caja en la pantalla
+
+---
+
+<!-- backgroundColor: #f6f7f9 -->
+
+# Cómo se usa
 
 ```typescript
-export interface Incident {
-  id: string;
-  reference: string;
-  title: string;
-  severity: 'low' | 'medium' | 'high' | 'critical';
-  status: 'new' | 'ack' | 'in_progress' | 'resolved';
-  reportedBy: string;
-  assignedTo?: string;
+// Crear la caja con un valor
+loading = signal(false);
+
+// Ver qué hay en la caja
+if (loading()) {
+  console.log('Estamos cargando...');
 }
+
+// Cambiar el contenido de la caja
+loading.set(true);  // Ahora la pantalla se actualiza sola
 ```
 
-```typescript
-export interface IncidentTimelineEntry {
-  status: Incident['status'];
-  note: string;
-  actor: string;
-  createdAt: string;
-}
-```
+**En el template:** `<div *ngIf="loading()">Cargando...</div>`
 
 ---
 
 <!-- backgroundColor: #f6f7f9 -->
 
-# Formularios reactivos vs template-driven
+# ¿Cuándo usar Signals?
 
-- Template-driven: `[(ngModel)]` rápido para prototipos, pero poco testeable y sin tipos.
-- Reactive forms: `FormGroup`, `FormControl`, validaciones declarativas y mayor trazabilidad.
-- Estrategia: mapear campos al contrato API, definir validaciones sincronizadas y mensajes reutilizables.
-- Resultado: formularios alineados con el backend y fáciles de mantener.
+- ✅ Estado de carga: `loading`, `saving`, `processing`
+- ✅ Datos del usuario: `currentUser`, `isLoggedIn`
+- ✅ Listas: `incidents`, `users`, `agents`
+- ✅ Formularios: datos que se muestran en selects, inputs
 
 ---
 
 <!-- backgroundColor: #f6f7f9 -->
 
-# Signals en Angular para formularios
+# Beneficios
 
-- Una señal (`signal`) es un contenedor reactivo: se lee como función (`loading()`) y se actualiza con `set`/`update`. Angular detecta los cambios sin `ChangeDetectorRef` ni suscripciones manuales.
-- Son ideales para estado UI como loaders, entidades seleccionadas o catálogos: cada cambio invalida la vista asociada automáticamente.
-- Ejemplo:
-  ```typescript
-  const filters = signal({ severity: 'all', status: 'open' })
-  effect(() => incidentService.getList(filters()))
-  ```
-- En IncidentDetail usamos señales para `loading`, `incident`, `reporters` y `agents`, lo que simplifica la sincronización con el formulario reactivo.
+- 🚀 **Más simple**: no necesitas `subscribe()` ni `unsubscribe()`
+- ⚡ **Más rápido**: Angular solo actualiza lo necesario
+- 🎯 **Más claro**: lees el código y entiendes qué cambia
