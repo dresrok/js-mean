@@ -1,0 +1,45 @@
+<!-- Layout protegido: define la barra superior y delega el resto al router-outlet. -->
+@let sessionState = session();
+@let user = sessionState?.user;
+
+<mat-toolbar class="top-bar">
+  <span>Tablero de Incidentes</span>
+  <span class="spacer"></span>
+  @for (link of links; track link.path) {
+    <a
+      mat-button
+      [routerLink]="link.path"
+      routerLinkActive="active-link"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      <mat-icon>{{ link.icon }}</mat-icon>
+      <span>{{ link.label }}</span>
+    </a>
+  }
+  @if (user) {
+    <button
+      matButton
+      class="user-trigger"
+      [matMenuTriggerFor]="userMenu"
+      aria-label="Abrir menú de usuario"
+    >
+      <mat-icon>account_circle</mat-icon>
+      <span>{{ user.fullName }}</span>
+      <mat-icon class="caret">expand_more</mat-icon>
+    </button>
+    <mat-menu #userMenu="matMenu">
+      <button mat-menu-item disabled>
+        <mat-icon>account_circle</mat-icon>
+        <span>{{ user!.email || 'Usuario' }}</span>
+      </button>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        <span>Salir</span>
+      </button>
+    </mat-menu>
+  }
+</mat-toolbar>
+
+<main class="content">
+  <router-outlet></router-outlet>
+</main>
