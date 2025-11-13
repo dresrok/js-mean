@@ -1,0 +1,30 @@
+<section class="detail">
+  <header>
+    <h2>{{ isCreateMode ? 'Crear incidente' : 'Editar incidente' }}</h2>
+  </header>
+
+  @if (!loading()) {
+    <app-incident-form
+      [incident]="incident()"
+      [loading]="loading()"
+      [reporters]="reporters()"
+      [agents]="agents()"
+      (submitted)="handleSubmit($event)"
+      (cancelled)="cancel()"
+    ></app-incident-form>
+
+    @if (!isCreateMode) {
+      <footer class="detail-actions">
+        <button matButton="outlined" color="warn" type="button" (click)="markAsCancelled()">
+          Marcar como cancelado
+        </button>
+      </footer>
+    }
+  }
+
+  @else {
+    <div class="loading">
+      <mat-spinner diameter="48" />
+    </div>
+  }
+</section>

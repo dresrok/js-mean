@@ -1,0 +1,36 @@
+.top-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  .spacer {
+    flex: 1 1 auto;
+  }
+
+  a {
+    text-transform: none;
+
+    &.active-link {
+      background-color: var(--mat-sys-primary);
+      color: var(--mat-sys-on-primary);
+    }
+  }
+
+  .user-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-weight: 600;
+    text-transform: none;
+  }
+
+  .caret {
+    font-size: 1rem;
+  }
+}
+
+.content {
+  padding: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
