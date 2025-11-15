@@ -6,8 +6,8 @@ Esta clase aborda los conceptos fundamentales de Comunicación entre Angular y N
 
 - **docs/**: Presentación teórica sobre Comunicación entre Angular y Node.js mediante APIs REST
 - **project/**: Archivos de la sesión práctica con ejemplos de implementación
-  - **incident-desk-api/**: API REST para el sistema de incidencias
-  - **incident-desk-ui/**: Interfaz de usuario para el sistema de incidencias
+  - **incident-desk-api/**: API REST para el sistema de incidentes
+  - **incident-desk-ui/**: Interfaz de usuario para el sistema de incidentes
 
 ## Guía
 
