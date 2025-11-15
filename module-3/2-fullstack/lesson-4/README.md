@@ -1,10 +1,10 @@
-# Clase 3: Gestión de autenticación con JWT y Angular
+# Clase 4: Manejo avanzado de roles y permisos
 
-Esta clase aborda los conceptos fundamentales de Gestión de autenticación con JWT y Angular, elementos esenciales para construir aplicaciones web modernas.
+Esta clase aborda los conceptos fundamentales de Manejo avanzado de roles y permisos, elementos esenciales para construir aplicaciones web modernas.
 
 ## Estructura del contenido
 
-- **docs/**: Presentación teórica sobre Gestión de autenticación con JWT y Angular
+- **docs/**: Presentación teórica sobre Manejo avanzado de roles y permisos
 - **project/**: Archivos de la sesión práctica con ejemplos de implementación
   - **incident-desk-api/**: API REST para el sistema de incidentes
     - Para generar la clave de acceso, ejecutar el siguiente comando:
