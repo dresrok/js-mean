@@ -6,3 +6,4 @@
 - [Clase 4: Manejo avanzado de roles y permisos](lesson-4/README.md)
 - [Clase 5: Optimización de consultas en MongoDB](lesson-5/README.md)
 - [Clase 6: Seguridad en aplicaciones MEAN: OWASP y prácticas seguras](lesson-6/README.md)
+- [Clase 7: Testing end-to-end con Cypress](lesson-7/README.md)
