@@ -7,3 +7,4 @@
 - [Clase 5: Optimización de consultas en MongoDB](lesson-5/README.md)
 - [Clase 6: Seguridad en aplicaciones MEAN: OWASP y prácticas seguras](lesson-6/README.md)
 - [Clase 7: Testing end-to-end con Cypress](lesson-7/README.md)
+- [Clase 8: Proyecto integrador: Aplicación Full Stack completa](lesson-8/README.md)
