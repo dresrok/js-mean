@@ -1,0 +1,17 @@
+{
+  "newIncident": {
+    "title": "Incidente de prueba E2E",
+    "description": "Este incidente fue generado automáticamente por Cypress durante las pruebas end-to-end",
+    "severity": "high"
+  },
+  "minimalIncident": {
+    "title": "Test mínimo",
+    "description": "Incidente con datos mínimos requeridos",
+    "severity": "low"
+  },
+  "criticalIncident": {
+    "title": "Sistema caído en producción",
+    "description": "Los usuarios reportan que no pueden acceder a la aplicación principal",
+    "severity": "critical"
+  }
+}
