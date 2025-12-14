@@ -1,0 +1,36 @@
+.content {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+
+  mat-card {
+    width: min(420px, 100%);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    h1 {
+      margin: 0;
+    }
+
+    .lead {
+      margin: 0;
+      color: rgba(0, 0, 0, 0.6);
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .secondary-actions {
+      display: flex;
+      justify-content: center;
+      margin-top: 0.25rem;
+    }
+  }
+}
